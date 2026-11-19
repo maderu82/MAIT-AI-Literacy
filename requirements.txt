@@ -1,0 +1,4 @@
+# The Workflows SDK (>= 3.10 required for service-account token auth).
+# 3.20 is the current stable line; 4.x is still in pre-release.
+mistralai-workflows>=3.20,<4
+pydantic>=2
