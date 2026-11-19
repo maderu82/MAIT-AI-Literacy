@@ -33,15 +33,16 @@ from .validators import (
     verify_quotes_everywhere,
 )
 
-PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
-
 # Section headings of the framework file format (prompt 3, section 9).
 # Extraction needs sections 1-3; scoring also needs section 4.
 REQUIRED_SECTIONS = ["Purpose and scope", "Unit of analysis", "Dimensions", "General scoring rules"]
 
 
 def _read_prompt(name: str) -> str:
-    return (PROMPTS_DIR / name).read_text(encoding="utf-8")
+    # Resolved lazily, inside the activity: workflow code runs in a sandbox
+    # that forbids filesystem access at import time; activities may read files.
+    prompts_dir = Path(__file__).resolve().parent / "prompts"
+    return (prompts_dir / name).read_text(encoding="utf-8")
 
 
 # --------------------------------------------------------------------------
